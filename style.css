@@ -1,0 +1,153 @@
+.slidev-layout h1 {
+  font-size: 3em;
+  text-align: center;
+  font-weight: 900;
+  margin-bottom: 1em;
+}
+
+.slidev-layout h2 {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.head {
+  width: 82%;
+  height: 100%;
+  position: absolute;
+  background: #FFEFCE;
+  border-radius: 40%;
+  z-index: 3;
+  left: 8%;
+  border: 1px solid #cf9a361f;
+}
+
+.ear-left {
+  position: absolute;
+  width: 20%;
+  height: 30%;
+  top: 35%;
+  left: 2%;
+  background: #FFEFCE;
+  border-radius: 50%;
+  z-index: 1;
+  border: 1px solid #cf9a361f;
+}
+
+.ear-right {
+  position: absolute;
+  width: 20%;
+  height: 30%;
+  right: 2%;
+  top: 35%;
+  background: #FFEFCE;
+  border-radius: 50%;
+  z-index: 1;
+  border: 1px solid #cf9a361f;
+}
+
+.inner-ear {
+  position: absolute;
+  border-radius: 50%;
+  width: 78%;
+  height: 80%;
+  top: 10%;
+  left: 12%;
+  background: #FFC281;
+}
+
+.eye-left {
+  position: absolute;
+  background: #fff;
+  width: 25%;
+  height: 25%;
+  top: 25%;
+  left: 21%;
+  border-radius: 50%;
+  z-index: 4;
+}
+
+.eye-right {
+  position: absolute;
+  background: #fff;
+  width: 25%;
+  height: 25%;
+  top: 25%;
+  right: 21%;
+  border-radius: 50%;
+  z-index: 4;
+}
+
+.pupil {
+  position: absolute;
+  width: 40%;
+  height: 40%;
+  top: 28%;
+  left: 32%;
+  border-radius: 50%;
+  background: #333;
+  transition: all 0.2s;
+}
+
+pupil.right {
+  left: 40%;
+
+}
+
+.nose {
+  position: absolute;
+  background-image: linear-gradient(#FFEFCE, #FFE1B0);
+  width: 16%;
+  height: 18%;
+  left: 42%;
+  top: 46%;
+  border-radius: 1em;
+  z-index: 5;
+  border-bottom: 1px solid #FFC281;
+}
+
+.hair {
+  width: 96%;
+  height: 75%;
+  top: -6%;
+  left: 2%;
+  position: absolute;
+  background: #cf9a36;
+  border-radius: 44%;
+  z-index: 2;
+}
+
+.hair-hover {
+  width: 84%;
+  height: 28%;
+  left: 7%;
+  top: -8%;
+  position: absolute;
+  background: #cf9a36;
+  border-radius: 50%;
+  z-index: 6;
+  transform: rotate(-8deg);
+}
+
+.beard {
+  width: 66%;
+  height: 34%;
+  z-index: 7;
+  background: #cf9a36;
+  top: 67%;
+  left: 16%;
+  position: absolute;
+  opacity: 0.4;
+  border-radius: 35% 35% 50% 50%;
+}
+
+.mouth {
+  width: 36%;
+  height: 14%;
+  left: 32%;
+  top: 76%;
+  position: absolute;
+  background: #fff;
+  z-index: 8;
+  border-radius: 0 0 50% 50%;
+  border: 1px solid #cf9a36a6;
+}
