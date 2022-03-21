@@ -131,13 +131,15 @@ console.log(typeof undeclaredVariable);
 [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof)
 
 <!--
-Fare qualche esempio,
+Playcode typeof
 
 PS altri operatori javascript
 aritmetici + * / - ++ --
 logici && ||
-confronto == === 
+confronto == ===
+assegnazione =
 -->
+
 ---
 
 <!------------------------------- SLIDE 6 ------------------------------>
@@ -152,23 +154,21 @@ confronto == ===
     <img class="w-400px" src="/images/References.png" />
   </div>
 
-  <!--
-  If a primitive type is assigned to a variable, we can think of that variable as containing the primitive value.
+<!--
+If a primitive type is assigned to a variable, we can think of that variable as containing the primitive value.
+When we assign these variables to other variables using =, we copy the value to the new variable. They are copied by value.
 
-  When we assign these variables to other variables using =, we copy the value to the new variable. They are copied by value.
+Variables that are assigned a non-primitive value are given a reference to that value. That reference points to the object’s location in memory. The variables don’t actually contain the value.
 
-  Variables that are assigned a non-primitive value are given a reference to that value. That reference points to the object’s location in memory. The variables don’t actually contain the value.
-
-  However, if you use the assignment operator for a reference value, it will not copy the value. Instead, both variables will reference the same object in the memory:
-
-  Fare qualche esempio di cosa succede se modifico variabili con primitivi o con oggetti
-  -->
+However, if you use the assignment operator for a reference value, it will not copy the value. Instead, both variables will reference the same object in the memory.
+Playcode 2 values vs. references
+-->
 
 ---
 
 <!------------------------------- SLIDE 7 ------------------------------>
 
-# Oggetti e prototype
+# Oggetti
 
 ## Creare un oggetto
 
@@ -195,64 +195,91 @@ function Person(name) {
 const frankie = new Person('Frankie');
 ```
 
-<!-- 
-https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects
+<!--
+An object is a collection of related data and/or functionality.
 
-https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes
+It is considered good practice to name constructor functions with an upper-case first letter.
 
-There are two syntaxes to create an empty object:
+The this keyword refers to the current object the code is being written inside — so in this case this is equivalent to person. So why not just write person instead?
 
-- By using object literal
-- By using object constructor
+Well, when you only have to create a single object literal, it's not so useful. But if you create more than one, this enables you to use the same method definition for every object you create.
 
-```js
-var user =  {};  // 'object literal' syntax  
-var name = new Object();  //'object constructor' syntax  
-```
+Note: The new keyword in front of any function turns function call into a constructor call.
 -->
+
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 8 ------------------------------>
 
-# Oggetti e prototype
+# Oggetti
 
 ## Accedere alle proprietà
 
 ### Dot Notation
+```js
+person.name
+person.introduceSelf()
+
+person.address?.city // Optional chaining
+```
 
 
 ### Bracket Notation
 
+```js
+person['name']
+person['introduceSelf']()
+
+const nome = 'name';
+person[nome];
+```
+
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 9 ------------------------------>
 
 # Oggetti e prototype
 
+The prototype is an object that is associated with every functions and objects by default in JavaScript, where function's prototype property is accessible and modifiable and object's prototype property (aka attribute) is not visible.
+
+Prototypes are the mechanism by which JavaScript objects inherit features from one another.
+
+Prototype property is basically an object (also known as Prototype object), where we can attach methods and properties in a prototype object, which enables all the other objects to inherit these methods and properties.
+
+Javascript è un linguaggio orientato agli oggetti che è unico in quanto non dispone di classi. Utilizziamo invece funzioni per creare oggetti.
+
+Tutte le funzioni hanno un prototipo, che tutti gli oggetti creati usando questa function erediteranno tutte le properties; ei methods.
+
+
+
+<!--
+The JavaScript prototype property also allows you to add new methods to objects constructors:
+This is an object with one data property, city, and one method, greet(). If you type the object's name followed by a period into the console, like myObject., then the console will pop up a list of all the properties available to this object. You'll see that as well as city and greet, there are lots of other properties!
+
+Playcode3 Objects aggiungere a mano esempio indirizzo con ? e prove di bracket notation e prove di aggiungere proprietà
+-->
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 10 ------------------------------>
 
 # Oggetti e Es6
+
+Spread operator
 
 https://www.javatpoint.com/es6-objects#:~:text=Objects%20are%20the%20collection%20of,or%20multiple%20values%20using%20objects.
 
 
----
-
-<!------------------------------- SLIDE  ------------------------------>
-
-# Oggetti e destructuring
-
 https://www.javatpoint.com/es6-object-destructuring
 
-
 ---
 
 
-<!------------------------------- SLIDE 7 ------------------------------>
+<!------------------------------- SLIDE 11 ------------------------------>
 
 # Copiare un'oggetto
 
@@ -279,6 +306,12 @@ https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 
 ---
 
+<!------------------------------- SLIDE  ------------------------------>
+
+# JSON (JavaScript Object Notation)
+
+
+---
 
 <!------------------------------- SLIDE  ------------------------------>
 
@@ -327,6 +360,13 @@ const somma = (x, y) => x + y;
 
 ---
 
+
+<!------------------------------- SLIDE  ------------------------------>
+
+# Array.prototype.forEach()
+
+---
+
 <!------------------------------- SLIDE  ------------------------------>
 
 # Array.prototype.map()
@@ -356,6 +396,8 @@ console.log(result);
 // expected output: Array ["exuberant", "destruction", "present"]
 ```
 
+<!-- https://jscodebox.com/challenge/4 -->
+
 ---
 
 <!------------------------------- SLIDE ------------------------------>
@@ -376,7 +418,20 @@ const sumWithInitial = array1.reduce(
 console.log(sumWithInitial);
 // expected output: 10
 ```
+<!-- 
+https://www.codewars.com/kata/5715eaedb436cf5606000381/solutions/javascript
+ -->
+
 ---
+
+<!------------------------------- SLIDE  ------------------------------>
+
+# Classes
+
+https://www.javatpoint.com/es6-classes
+  
+---
+
 
 <!------------------------------- SLIDE  ------------------------------>
 
@@ -397,12 +452,6 @@ https://www.javatpoint.com/es6-set
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
-
-# JSON (JavaScript Object Notation)
-
-
----
 
 <!------------------------------- SLIDE ------------------------------>
 
