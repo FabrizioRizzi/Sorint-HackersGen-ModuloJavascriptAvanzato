@@ -131,7 +131,7 @@ console.log(typeof undeclaredVariable);
 [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof)
 
 <!--
-Playcode typeof
+Stackblitz typeof
 
 PS altri operatori javascript
 aritmetici + * / - ++ --
@@ -161,7 +161,7 @@ When we assign these variables to other variables using =, we copy the value to 
 Variables that are assigned a non-primitive value are given a reference to that value. That reference points to the object’s location in memory. The variables don’t actually contain the value.
 
 However, if you use the assignment operator for a reference value, it will not copy the value. Instead, both variables will reference the same object in the memory.
-Playcode 2 values vs. references
+Stackblitz 2 values vs. references
 -->
 
 ---
@@ -238,29 +238,26 @@ https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Basics
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
 
+
 ---
 
 <!------------------------------- SLIDE 9 ------------------------------>
 
-# Oggetti e prototype
+# Prototype
+<p></p>
 
-The prototype is an object that is associated with every functions and objects by default in JavaScript, where function's prototype property is accessible and modifiable and object's prototype property (aka attribute) is not visible.
+Il prototype è un oggetto associato di default in Javascript a tutte le funzioni e oggetti ed è il meccanismo tramite il quale gli oggetti Javascript ereditano le loro funzionalità.
 
-Prototypes are the mechanism by which JavaScript objects inherit features from one another.
+È possibile aggiungere metodi e proprietà all'oggetto prototype. Questo permette agli altri oggetti creati dallo stesso costruttore di ereditare i metodi e le proprietà aggiunte.
 
-Prototype property is basically an object (also known as Prototype object), where we can attach methods and properties in a prototype object, which enables all the other objects to inherit these methods and properties.
+<p></p>
 
-Javascript è un linguaggio orientato agli oggetti che è unico in quanto non dispone di classi. Utilizziamo invece funzioni per creare oggetti.
-
-Tutte le funzioni hanno un prototipo, che tutti gli oggetti creati usando questa function erediteranno tutte le properties; ei methods.
-
-
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes
 
 <!--
-The JavaScript prototype property also allows you to add new methods to objects constructors:
 This is an object with one data property, city, and one method, greet(). If you type the object's name followed by a period into the console, like myObject., then the console will pop up a list of all the properties available to this object. You'll see that as well as city and greet, there are lots of other properties!
 
-Playcode3 Objects aggiungere a mano esempio indirizzo con ? e prove di bracket notation e prove di aggiungere proprietà
+Stackblitz 3 Objects aggiungere a mano esempio indirizzo con ? e prove di bracket notation e prove di aggiungere proprietà
 -->
 
 ---
@@ -269,94 +266,220 @@ Playcode3 Objects aggiungere a mano esempio indirizzo con ? e prove di bracket n
 
 # Oggetti e Es6
 
-Spread operator
+## Destructuring
 
-https://www.javatpoint.com/es6-objects#:~:text=Objects%20are%20the%20collection%20of,or%20multiple%20values%20using%20objects.
+Il destructuring è un'espressione JavaScript che consente di separare le proprietà di un oggetto (o i valori di un array) in variabili distinte.
 
+```js
+const user = {
+    id: 42,
+    isVerified: true
+};
 
-https://www.javatpoint.com/es6-object-destructuring
+const {id, isVerified} = user;
+
+console.log(id); // 42
+console.log(isVerified); // true
+```
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+
+<!--
+Stackblitz 4
+-->
 
 ---
-
 
 <!------------------------------- SLIDE 11 ------------------------------>
 
 # Copiare un'oggetto
 
+```js
+const originalObject = { original: 'original'}
+```
+
 ## Shallow copy
 
-Una copia bla bla
+-  Spread operator or Object.assign()
+```js
+const copiedObject = {...originalObject};
+
+const copiedObject = Object.assing({}, originalObject);
+```
 
 ## Deep copy
 
-Una copia bla bla
- copiare prototype
-https://www.javascripttutorial.net/object/3-ways-to-copy-objects-in-javascript/
+- JSON.parse(JSON.stringify())
+
+```js
+const copiedObject = JSON.parse(JSON.stringify(originalObject));
+```
+
+- structuredClone (recentemente implementato, 
+https://developer.mozilla.org/en-US/docs/Web/API/structuredClone)
+- librerie (es. cloneDeep di Lodash https://lodash.com/)
 
 
-https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
-
-
-https://stackoverflow.com/questions/728360/how-do-i-correctly-clone-a-javascript-object
-https://lodash.com/
+<!--
+The Object.assign() method copies all enumerable own properties from one or more source objects to a target object. It returns the modified target object.
 
 https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
 
-<!-- Fare esempio che clonando oggetto il valore non cambia -->
+Fare esempio che clonando oggetto il valore non cambia
+-->
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 12 ------------------------------>
 
 # JSON (JavaScript Object Notation)
 
+JSON è un formato di serializzazione di oggetti, array, numeri, stringhe, booleani e null. Utilizzato per lo scambio di dati, principalmente tra server e applicazione web, utilizza l'estensione .json
+
+```js
+{
+	"name": "Mario",
+	"surname": "Rossi",
+	"active": true,
+	"favoriteNumber": 42,
+	"birthday": {
+		"day": 1,
+		"month": 1,
+		"year": 2000
+	},
+	"languages": [ "it", "en" ]
+}
+```
+
+<!--
+API è l'abbreviazione di interfaccia di programmazione delle applicazioni (application programming interface), ovvero un insieme di definizioni e protocolli per la creazione e l'integrazione di software applicativi.
+
+https://jsonplaceholder.typicode.com/posts/
+
+https://jsonplaceholder.typicode.com/posts/1
+-->
 
 ---
 
 <!------------------------------- SLIDE  ------------------------------>
 
 # Funzioni e Es6 
-https://www.javatpoint.com/es6-functions
-default parameters
-rest parameters
+
+## Default parameters
+
+I  default parameters consentono di inizializzare i parametri della funzione con dei valori di default se non viene passato nessun valore oppure undefined.
+
+```js
+function multiply(a, b = 1) {
+  return a * b;
+}
+```
+
+## Rest parameters
+
+Questa sintassi consente alla funzione di accettare un numero indefinito di argomenti sotto forma di array.
+
+```js
+function logItems(...theArgs) {
+  console.log(theArgs);
+}
+
+logItems(1, 2, 3); // expected output: [1, 2, 3]
+```
+
+<!--
+Funzioni ok,vediamo come funzionano queste cose nuove di Es6
+-->
 
 ---
 
 <!------------------------------- SLIDE  ------------------------------>
 
 # Arrow function
-Una arrow function è un'alternativa compatta alle tradizionali funzioni, ma non può essere utilizzata in tutte le situazioni. Sono funzioni anonime che non hanno un binding del this, e non dovrebbero essere utilizzate come metodi, oltre a non poter essere utilizzate come costruttore.
+Una arrow function è un'alternativa compatta alle tradizionali funzioni. Si tratta di una funzione anonima che non ha un binding del this, e non dovrebbe essere utilizzata come metodo, oltre a non poter essere utilizzata come costruttore.
 
-Differences & Limitations:
-
-Does not have its own bindings to this or super, and should not be used as methods.
-Does not have new.target keyword.
-Not suitable for call, apply and bind methods, which generally rely on establishing a scope.
-Can not be used as constructors.
-Can not use yield, within its body.
 ```js
+param => expression
+
+(param1, paramN) => expression
+
+(param1, paramN) => {
+   let a = 1;
+   return a + param1 + paramN;
+}
+
 const somma = (x, y) => x + y;
 ```
+- Se è presente un solo parametro non necessitano delle parentesi tonde
+- Se di una sola riga non necessitano di parentesi graffe e prevedono il return implicito
 
-(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions?retiredLocale=it)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions?retiredLocale=it]
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 
----
-
-<!------------------------------- SLIDE  ------------------------------>
-
-# Array e ES6
-
-  https://www.javatpoint.com/es6-arrays
+<!--
+Parallelira function e arrow (no bindingdel this)
+-->
 
 ---
 
 <!------------------------------- SLIDE  ------------------------------>
 
-# Array destructuring
+# Array 
 
-  spread operator
+## Creare un array
 
-  https://www.javatpoint.com/es6-arrays
+```js
+const array = new Array();  // By using the new keyword
+
+const arrayLiteral = [value1, value2,....valueN];  // By using Array literals
+```
+
+<br/>
+<br/>
+
+## Accedere agli elementi
+
+```js
+array[indice];
+```
+
+NB. L'indice del primo elemento è 0!
+
+
+<br/>
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+<!--
+Esempietti nello stackblitz
+-->
+
+---
+
+<!------------------------------- SLIDE  ------------------------------>
+
+# Array e Es6
+
+## Destructuring
+
+Il destructuring è un'espressione JavaScript che consente di separare i valori di un array (o le proprietà di un oggetto) in variabili distinte.
+
+```js
+const foo = ['one', 'two', 'three'];
+
+const [red, yellow, green] = foo;
+console.log(red); // "one"
+console.log(yellow); // "two"
+console.log(green); // "three"
+```
+
+## Spread operator
+
+La spread syntax consente di "espandere" gli elementi di un array.
+Nella pratica è utilizzata per aggiungere elementi ad un array o oggetto, combinare array o oggetti e copiare array o oggetti (shallow copy). 
+
+```js
+...array
+```
 
 ---
 
@@ -365,13 +488,29 @@ const somma = (x, y) => x + y;
 
 # Array.prototype.forEach()
 
+Il metodo forEach esegue la funzione passata come parametro per ciascun elemento dell'array.
+
+```js
+const array1 = ['a', 'b', 'c'];
+
+
+for (i = 0; i < array1.length; i++) {
+  console.log(array1[i]);
+}
+
+
+array1.forEach((element) => console.log(element));
+```
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+
 ---
 
 <!------------------------------- SLIDE  ------------------------------>
 
 # Array.prototype.map()
 
-Il metodo map crea un nuovo array popolato con i valori ritornati dalla funzione passata come argomento. Questa funzione viene chiamata per ogni elemento dell'array originale.
+Il metodo map crea un nuovo array popolato con i valori ritornati dalla funzione passata come parametro. Questa funzione viene chiamata per ogni elemento dell'array originale.
 
 ```js
 const map = [1, 2, 3, 4, 5].map((number) => number * 2);
@@ -380,12 +519,14 @@ console.log(map);
 // [2, 4, 6, 8, 10]
 ```
 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+
 ---
 
 <!------------------------------- SLIDE  ------------------------------>
 
 # Array.prototype.filter()
-Il metodo filter crea un nuovo array contenente tutti gli elementi che passano il test implementato nella funziona passata come argomento.
+Il metodo filter crea un nuovo array contenente tutti gli elementi che passano il test implementato nella funziona passata come parametro.
 
 ```js
 const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
@@ -396,14 +537,20 @@ console.log(result);
 // expected output: Array ["exuberant", "destruction", "present"]
 ```
 
-<!-- https://jscodebox.com/challenge/4 -->
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
+<!--
+https://jscodebox.com/challenge/4
+
+https://jsonplaceholder.typicode.com/posts/
+-->
 
 ---
 
 <!------------------------------- SLIDE ------------------------------>
 
 # Array.prototype.reduce()
-The reduce() method executes a user-supplied "reducer" callback function on each element of the array, in order, passing in the return value from the calculation on the preceding element. The final result of running the reducer across all elements of the array is a single value.
+Il metodo reduce esegue la funzione passata come argomento per ciascun elemento dell'array. Questa funzione, ad ogni iterazione avrà due parametri, il primo sarà il valore ritornato dal calcolo precedente mentre il secondo l'attuale elemento dell'array. Il risultato finale è un singolo valore.
 
 ```js
 const array1 = [1, 2, 3, 4];
@@ -418,6 +565,9 @@ const sumWithInitial = array1.reduce(
 console.log(sumWithInitial);
 // expected output: 10
 ```
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+
 <!-- 
 https://www.codewars.com/kata/5715eaedb436cf5606000381/solutions/javascript
  -->
@@ -428,17 +578,47 @@ https://www.codewars.com/kata/5715eaedb436cf5606000381/solutions/javascript
 
 # Classes
 
-https://www.javatpoint.com/es6-classes
-  
----
+Le classi, introdotte con ES6, formalizzano il pattern di ereditarietà basato sulle classi che veniva simulato tramite funzioni e prototypes.
 
+```js
+class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+
+const rect = new Rectangle(20, 30);
+```
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+
+---
 
 <!------------------------------- SLIDE  ------------------------------>
 
 # Maps
 
-https://www.javatpoint.com/es6-map
-  
+L'oggetto Map contiene delle coppie di chiave-valore. Qualsiasi valore (sia oggetti che primitivi) possono essere utilizzati sia come chiavi che valori.
+
+```js
+const map1 = new Map();
+
+map1.set('a', 1);
+map1.set('b', 2);
+map1.set('c', 3);
+
+console.log(map1.get('a')); // expected output: 1
+
+map1.set('a', 97);
+
+console.log(map1.get('a')); // expected output: 97
+
+console.log(map1.size); // expected output: 3
+```
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+
 ---
 
 
@@ -446,332 +626,37 @@ https://www.javatpoint.com/es6-map
 
 # Sets
 
-https://www.javatpoint.com/es6-set
+Gli oggetti Set sono collezioni di valori. Ogni valore può essere presente una sola volta, ciò rende il Set una collezioni di valori univoci.
+
+```js
+const mySet1 = new Set()
+
+mySet1.add(1)           // Set [ 1 ]
+mySet1.add(5)           // Set [ 1, 5 ]
+mySet1.add(5)           // Set [ 1, 5 ]
+mySet1.add('some text') // Set [ 1, 5, 'some text' ]
+
+mySet1.has(1)              // true
+mySet1.has(3)              // false, since 3 has not been added to the set
+
+mySet1.size         // 5
+```
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set
 
 <!-- Esempio rendere unique values dell'array -->
 
 ---
 
 
-<!------------------------------- SLIDE ------------------------------>
+<!------------------------------- SLIDE  ------------------------------>
 
-# Asynchronous calls with XMLHttpRequest
+# Bonus track: Ternary operator
 
-<p>
-  AJAX enables HTTP requests to be made not only during the load
-  time of a web page but also anytime after a page initially
-  loads. This allows adding dynamic behavior to a webpage. This is
-  essential for giving a good user experience without reloading
-  the webpage for transferring data to and from the web server.
-  The XMLHttpRequest (XHR) web API provides the ability to make
-  the actual asynchronous request and uses AJAX to handle the data
-  from the request. The given code block is a basic example of how
-  an HTTP GET request is made to the specified URL.
-</p>
+L'operatore ternario è l'unico operatore Javascript che accetta tre operandi: una condizione seguita dal punto esclamativo (?), un'espressione da eseguire se la condizione è truthy seguita da due punti (:), e infine l'espressione da eseguire se la condizione è falsy. Questo operatore è frequentemente utilizzato come alternativa a if.
 
 ```js
-const xhr = new XMLHttpRequest();
-
-xhr.open("GET", "mysite.com/api/getjson");
+const risultato = condizione ? espressioneTrue : espressioneFalse;
 ```
 
----
-
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
-
-### Keyboard Shortcuts
-
-|                                                    |                             |
-| -------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                | next animation or slide     |
-| <kbd>left</kbd> / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                      | previous slide              |
-| <kbd>down</kbd>                                    | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-/>
-
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-
-layout: image-right
-image: https://source.unsplash.com/collection/94734566/1920x1080
-
----
-
-# Code
-
-Use code snippets and get the highlighting directly![^1]
-
-```ts {all|2|1-6|9|all}
-interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  role: string;
-}
-
-function updateUser(id: number, update: User) {
-  const user = getUser(id);
-  const newUser = { ...user, ...update };
-  saveUser(id, newUser);
-}
-```
-
-<arrow v-click="3" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
-
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
-
-<style>
-.footnotes-sep {
-  @apply mt-20 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
-</style>
-
----
-
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
----
-
-## class: px-20
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="-t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
-
----
-
-## preload: false
-
-# Animations
-
-Animations are powered by [@vueuse/motion](https://motion.vueuse.org/).
-
-```html
-<div v-motion :initial="{ x: -80 }" :enter="{ x: 0 }">Slidev</div>
-```
-
-<div class="w-60 relative mt-6">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-square.png"
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-circle.png"
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-triangle.png"
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 40, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn More](https://sli.dev/guide/animations.html#motion)
-
-</div>
-
----
-
-# LaTeX
-
-LaTeX is supported out-of-box powered by [KaTeX](https://katex.org/).
-
-<br>
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-
-$$
-\begin{array}{c}
-
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
-= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-
-\nabla \cdot \vec{\mathbf{B}} & = 0
-
-\end{array}
-$$
-
-<br>
-
-[Learn more](https://sli.dev/guide/syntax#latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-3 gap-10 pt-4 -mb-6">
-
-```mermaid {scale: 0.5}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-[Learn More](https://sli.dev/guide/syntax.html#diagrams)
-
----
-
-layout: center
-class: text-center
-
----
-
-# Learn More
-
-[Documentations](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html)
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator?retiredLocale=it
