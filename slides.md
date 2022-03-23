@@ -17,7 +17,7 @@ drawings:
 
 <p class="flex items-center justify-center">
   <span class="m-2">Fabrizio Rizzi e</span>
-  <img class="w-120px" src="/images/SORINT.png" />
+  <img class="w-120px" src="/images/SORINT2.png" />
 </p>
 ---
 
@@ -303,7 +303,6 @@ const originalObject = { original: 'original'}
 -  Spread operator or Object.assign()
 ```js
 const copiedObject = {...originalObject};
-
 const copiedObject = Object.assing({}, originalObject);
 ```
 
@@ -315,8 +314,7 @@ const copiedObject = Object.assing({}, originalObject);
 const copiedObject = JSON.parse(JSON.stringify(originalObject));
 ```
 
-- structuredClone (recentemente implementato, 
-https://developer.mozilla.org/en-US/docs/Web/API/structuredClone)
+- structuredClone (recentemente implementato, https://developer.mozilla.org/en-US/docs/Web/API/structuredClone)
 - librerie (es. cloneDeep di Lodash https://lodash.com/)
 
 
@@ -361,7 +359,7 @@ https://jsonplaceholder.typicode.com/posts/1
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 13 ------------------------------>
 
 # Funzioni e Es6 
 
@@ -393,7 +391,7 @@ Funzioni ok,vediamo come funzionano queste cose nuove di Es6
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 14 ------------------------------>
 
 # Arrow function
 Una arrow function è un'alternativa compatta alle tradizionali funzioni. Si tratta di una funzione anonima che non ha un binding del this, e non dovrebbe essere utilizzata come metodo, oltre a non poter essere utilizzata come costruttore.
@@ -421,7 +419,7 @@ Parallelira function e arrow (no bindingdel this)
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 15 ------------------------------>
 
 # Array 
 
@@ -455,7 +453,7 @@ Esempietti nello stackblitz
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 16 ------------------------------>
 
 # Array e Es6
 
@@ -465,7 +463,6 @@ Il destructuring è un'espressione JavaScript che consente di separare i valori 
 
 ```js
 const foo = ['one', 'two', 'three'];
-
 const [red, yellow, green] = foo;
 console.log(red); // "one"
 console.log(yellow); // "two"
@@ -484,7 +481,7 @@ Nella pratica è utilizzata per aggiungere elementi ad un array o oggetto, combi
 ---
 
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 17 ------------------------------>
 
 # Array.prototype.forEach()
 
@@ -506,7 +503,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 18 ------------------------------>
 
 # Array.prototype.map()
 
@@ -523,7 +520,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 19 ------------------------------>
 
 # Array.prototype.filter()
 Il metodo filter crea un nuovo array contenente tutti gli elementi che passano il test implementato nella funziona passata come parametro.
@@ -547,7 +544,7 @@ https://jsonplaceholder.typicode.com/posts/
 
 ---
 
-<!------------------------------- SLIDE ------------------------------>
+<!------------------------------- SLIDE 20 ------------------------------>
 
 # Array.prototype.reduce()
 Il metodo reduce esegue la funzione passata come argomento per ciascun elemento dell'array. Questa funzione, ad ogni iterazione avrà due parametri, il primo sarà il valore ritornato dal calcolo precedente mentre il secondo l'attuale elemento dell'array. Il risultato finale è un singolo valore.
@@ -574,7 +571,7 @@ https://www.codewars.com/kata/5715eaedb436cf5606000381/solutions/javascript
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 21 ------------------------------>
 
 # Classes
 
@@ -595,7 +592,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
 
 ---
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 22 ------------------------------>
 
 # Maps
 
@@ -622,7 +619,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 ---
 
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 23 ------------------------------>
 
 # Sets
 
@@ -649,7 +646,7 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
 ---
 
 
-<!------------------------------- SLIDE  ------------------------------>
+<!------------------------------- SLIDE 24 ------------------------------>
 
 # Bonus track: Ternary operator
 
@@ -660,3 +657,109 @@ const risultato = condizione ? espressioneTrue : espressioneFalse;
 ```
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator?retiredLocale=it
+
+---
+
+<!------------------------------- SLIDE 25 ------------------------------>
+
+# Asynchronous Javascript
+
+La programmazione asincrona è una tecnica che consente al programma di iniziare un potenziale task di lunga durata e, invece che attendere l'esecuzione del task, continuare ad eserguire altri task mentre il precedente è in esecuzione.
+
+Call stack
+The call stack as its name implies is a stack with a LIFO (Last in, First out) structure, which is used to store all the execution context created during the code execution.
+
+https://www.freecodecamp.org/news/synchronous-vs-asynchronous-in-javascript/
+
+https://blog.bitsrc.io/understanding-asynchronous-javascript-the-event-loop-74cd408419ff
+
+<!-- Stackblitz Call stack -->
+
+---
+
+<!------------------------------- SLIDE ------------------------------>
+
+# Event handlers e callbacks
+
+Javascript è sincrono di default ed è single thread, questo significa che il codice non può creare nuovi threads per eseguire dei task in parallelo.
+
+Ma Javascript nasce all'interno del browser ed il suo scopo principale, inizialmente, era quello di rispondere alle azioni dell'utente come il click del mouse, l'input in un campo di testo, ecc... Come è possibile eseguire queste azioni con un modello di programmazione sincrona?
+
+The answer was in its environment. The browser provides a way to do it by providing a set of APIs that can handle this kind of functionality.
+
+Callbacks
+You can't know when a user is going to click a button. So, you define an event handler for the click event. This event handler accepts a function, which will be called when the event is triggered:
+
+JS
+copy
+document.getElementById('button').addEventListener('click', () => {
+  //item clicked
+})
+
+This is the so-called callback.
+
+A callback is a simple function that's passed as a value to another function, and will only be executed when the event happens. We can do this because JavaScript has first-class functions, which can be assigned to variables and passed around to other functions (called higher-order functions)
+
+A callback is just a function that's passed into another function, with the expectation that the callback will be called at the appropriate time. As we just saw: callbacks used to be the main way asynchronous functions were implemented in JavaScript.
+
+https://nodejs.dev/learn/javascript-asynchronous-programming-and-callbacks
+
+---
+
+<!------------------------------- SLIDE ------------------------------>
+
+# Promises
+
+Promises are the foundation of asynchronous programming in modern JavaScript. A promise is an object returned by an asynchronous function, which represents the current state of the operation. At the time the promise is returned to the caller, the operation often isn't finished, but the promise object provides methods to handle the eventual success or failure of the operation.
+
+---
+
+<!------------------------------- SLIDE ------------------------------>
+
+# Async / Await
+
+
+---
+
+<!------------------------------- SLIDE ------------------------------>
+
+# AJAX
+
+<p>
+  AJAX enables HTTP requests to be made not only during the load
+  time of a web page but also anytime after a page initially
+  loads. This allows adding dynamic behavior to a webpage. This is
+  essential for giving a good user experience without reloading
+  the webpage for transferring data to and from the web server.
+  The XMLHttpRequest (XHR) web API provides the ability to make
+  the actual asynchronous request and uses AJAX to handle the data
+  from the request. The given code block is a basic example of how
+  an HTTP GET request is made to the specified URL.
+</p>
+
+```js
+const xhr = new XMLHttpRequest();
+
+xhr.open("GET", "mysite.com/api/getjson");
+```
+
+---
+
+<!------------------------------- SLIDE ------------------------------>
+
+# XMLHttpRequest
+
+
+---
+
+<!------------------------------- SLIDE ------------------------------>
+
+# fetch
+
+
+---
+
+<!------------------------------- SLIDE ------------------------------>
+
+# axios
+
