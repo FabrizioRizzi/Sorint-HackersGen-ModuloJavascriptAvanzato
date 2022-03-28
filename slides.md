@@ -381,7 +381,6 @@ Questa sintassi consente alla funzione di accettare un numero indefinito di argo
 function logItems(...theArgs) {
   console.log(theArgs);
 }
-
 logItems(1, 2, 3); // expected output: [1, 2, 3]
 ```
 
@@ -662,104 +661,404 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Cond
 
 <!------------------------------- SLIDE 25 ------------------------------>
 
-# Asynchronous Javascript
+# Synchronous vs Asynchronous
+
+La programmazione sincrona esegue un task alla volta e solamente quando il task precedente è completato viene eseguito il task successivo.
+
+## Execution Context
+
+L' Execution Context è un concetto astratto dell' ambiente in cui il codice JavaScript code viene interpretato ed eseguito. Ogni volta che del codice JavaScript viene eseguito, ciò avviene all'interno dell'execution context.
+Il codice di una funzione viene eseguito all'interno del function execution context, mentre il codice globale dentro il global execution context. Ciascuna funzione ha il suo execution context.
+
+## Call stack
+Il call stack è uno stack con una struttura LIFO (Last in, First out), utilizzato per memorizzare tutti gli execution context creati durante l'esecuzione del codice.
+
+---
+
+<!------------------------------- SLIDE 25 ------------------------------>
+
+# Synchronous vs Asynchronous
 
 La programmazione asincrona è una tecnica che consente al programma di iniziare un potenziale task di lunga durata e, invece che attendere l'esecuzione del task, continuare ad eserguire altri task mentre il precedente è in esecuzione.
 
-Call stack
-The call stack as its name implies is a stack with a LIFO (Last in, First out) structure, which is used to store all the execution context created during the code execution.
+<br />
+<br />
 
 https://www.freecodecamp.org/news/synchronous-vs-asynchronous-in-javascript/
 
+<br />
+
 https://blog.bitsrc.io/understanding-asynchronous-javascript-the-event-loop-74cd408419ff
+
+## setTimeout()
+setTimeout() è una funzione asincrona che esegue un blocco di codice o una callback con un ritardo impostato in millisecondi.
 
 <!-- Stackblitz Call stack -->
 
 ---
 
-<!------------------------------- SLIDE ------------------------------>
+<!------------------------------- SLIDE 26 ------------------------------>
 
 # Event handlers e callbacks
 
-Javascript è sincrono di default ed è single thread, questo significa che il codice non può creare nuovi threads per eseguire dei task in parallelo.
+Gli Event handlers sono a tutti gli effetti una forma di programmazione asincrona.
+Non è possibile sapere in anticpio quando l'utente cliccherà un certo elemento, quindi definiamo un event handler per l'evento click. Questo event handler accetta una funzione che verrà chiamata al manifestarsi dell'evento.
 
-Ma Javascript nasce all'interno del browser ed il suo scopo principale, inizialmente, era quello di rispondere alle azioni dell'utente come il click del mouse, l'input in un campo di testo, ecc... Come è possibile eseguire queste azioni con un modello di programmazione sincrona?
+## Callbacks
+Una callback non è altro che una funzione che viene passata ad un'altra funzione, che la eseguirà al momento opportuno. Le callbacks sono state il principale modo in cui la programmazione asincrona è stata implementata in JavaScript.
 
-The answer was in its environment. The browser provides a way to do it by providing a set of APIs that can handle this kind of functionality.
-
-Callbacks
-You can't know when a user is going to click a button. So, you define an event handler for the click event. This event handler accepts a function, which will be called when the event is triggered:
-
-JS
-copy
-document.getElementById('button').addEventListener('click', () => {
-  //item clicked
-})
-
-This is the so-called callback.
-
-A callback is a simple function that's passed as a value to another function, and will only be executed when the event happens. We can do this because JavaScript has first-class functions, which can be assigned to variables and passed around to other functions (called higher-order functions)
-
-A callback is just a function that's passed into another function, with the expectation that the callback will be called at the appropriate time. As we just saw: callbacks used to be the main way asynchronous functions were implemented in JavaScript.
+<br />
 
 https://nodejs.dev/learn/javascript-asynchronous-programming-and-callbacks
 
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing
+
+<!-- Javascript nasce all'interno del browser ed il suo scopo principale, inizialmente, era quello di rispondere alle azioni dell'utente come il click del mouse, l'input in un campo di testo, ecc... Come è possibile eseguire queste azioni con un modello di programmazione sincrona?
+
+The answer was in its environment. The browser provides a way to do it by providing a set of APIs that can handle this kind of functionality.
+
+higher-order functions
+
+-->
+
 ---
 
-<!------------------------------- SLIDE ------------------------------>
+<!------------------------------- SLIDE 27 ------------------------------>
 
 # Promises
 
-Promises are the foundation of asynchronous programming in modern JavaScript. A promise is an object returned by an asynchronous function, which represents the current state of the operation. At the time the promise is returned to the caller, the operation often isn't finished, but the promise object provides methods to handle the eventual success or failure of the operation.
+Le Promises sono la base della programmazione asincrona del moderno JavaScript.
+
+Una promise è un oggetto ritornato da una funzione asincrona che rappresenta lo stato attuale dell'operazione. Nel momento in cui la promise viene tornata, l'operazione non è ancora stata ultimata ma fornisce dei metodi che consentono di gestire l'eventuale successo o fallimento dell'operazione.
+
+Una promise può essere in uno dei tre seguenti stati: pending, resolved, o rejected.
+```js
+const promise = new Promise((resolve, reject) => {
+  const res = true; // An asynchronous operation.
+  if (res) {
+    resolve('Resolved!');
+  }
+  else {
+    reject(Error('Error'));
+  }
+});
+```
+https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises
 
 ---
 
-<!------------------------------- SLIDE ------------------------------>
+<!------------------------------- SLIDE 28 ------------------------------>
 
-# Async / Await
+# Promises
 
+## .then() 
 
----
-
-<!------------------------------- SLIDE ------------------------------>
-
-# AJAX
-
-<p>
-  AJAX enables HTTP requests to be made not only during the load
-  time of a web page but also anytime after a page initially
-  loads. This allows adding dynamic behavior to a webpage. This is
-  essential for giving a good user experience without reloading
-  the webpage for transferring data to and from the web server.
-  The XMLHttpRequest (XHR) web API provides the ability to make
-  the actual asynchronous request and uses AJAX to handle the data
-  from the request. The given code block is a basic example of how
-  an HTTP GET request is made to the specified URL.
-</p>
+Il metodo .then() viene utilizzato per ricevere l'eventuale risultato (o errore) dell'operazione asincrona. then() accetta due funzioni come argomenti. La prima viene chiamata nel caso in cui la promise viene risolta, la seconda se la promise viene rigettata.
 
 ```js
-const xhr = new XMLHttpRequest();
+promise.then((res) => {
+  console.log(value);
+});
+```
 
-xhr.open("GET", "mysite.com/api/getjson");
+## .catch()
+
+Se viene aggiunto catch() alla catena della promise, verrà chiamato nel caso in cui l'operazione asincrona fallisce. Risulta utile nel caso in cui si intenda concatenare più operazioni asincrone.
+
+```js
+promise.catch((err) => {
+  alert(err);
+});
 ```
 
 ---
 
-<!------------------------------- SLIDE ------------------------------>
+<!------------------------------- SLIDE 29 ----------------------------->
+
+# Promises
+
+## .finally()
+
+Se viene aggiunto il metodo finally() alla catena della promise, verrà chiamato in seguito al completamento della promise sia nel caso in cui venga risolta che nel caso in cui fallisca.
+
+## .all
+
+Alle volte è necessario combinare delle promise, invece che eseguirle una dopo l'altra. Per questo esistono degli helpers. Ad esempio, a volte, è necessario che più promise vengano risolte ma non dipendono una dall'altra. In un caso del genere è possibile lanciarle tutte contemporaneamente ed essere poi notificati quando tutte le promises vengono risolte. Promise.all() consente proprio questo, accetta un array di promises, e ritorna una singola promise con un array di valori nel metodo then.
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+
+---
+
+<!------------------------------- SLIDE 30 ------------------------------>
+
+# Async / Await
+
+La sintassi async...await offre un nuovo modo più leggibile e scalabile di gestire le promises.
+
+Una funzione asincrona può essere creata con la keyword async prima del nome della funzione o delle parentesi () nel caso di arrow function.
+L'operando await è una promise. Quando il codice incontra la keyword await, l'esecuzione della funzione async è messa in pausa ed attende la risoluzione della promise. Await può essere utilizzato solamente in una funzione con async.
+```js
+function resolveAfter2Seconds() {
+  return new Promise(resolve => setTimeout(() => resolve('resolved'), 2000));
+}
+
+async function asyncCall() {
+  console.log('calling');
+  const result = await resolveAfter2Seconds();
+  console.log(result); // expected output: "resolved"
+}
+
+asyncCall();
+```
+
+Le funzioni async utilizzano try...catch per gestire gli errori.
+
+---
+
+<!------------------------------- SLIDE 31 ------------------------------>
+
+# AJAX
+
+
+Asynchronous JavaScript and XML, è un acronimo coniato nel 2005 da Jesse James Garrett, che descrive un "nuovo" approccio all'utilizzo di tecnologie esistenti insieme che includono HTML or XHTML, CSS, JavaScript, DOM, XML, XSLT, ed il più importante, l'oggetto XMLHttpRequest object. Tramite queste tecnologie le web applications sono in grado di eseguire rapidi ed incrementali aggiornamenti dell'interfaccia utente, senza ricaricare l'intera pagina.
+
+XMLHttpRequest può inviare e ricevere informazioni in diversi formati (tra cui JSON, XML, HTML, and text files).
+
+Le due principali funzionalità di AJAX sono:
+- Effettuare richieste ad un server senza ricaricare la pagina
+- Ricevere e gestire dati da un server
+
+<br />
+
+https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX
+
+---
+
+<!------------------------------- SLIDE 32 ------------------------------>
 
 # XMLHttpRequest
 
+Per inviare una richiesta HTTP ad un server utilizzando JavaScript, è necessario creare un oggetto XMLHttpRequest, "aprire" un url ed inviare la richiesta. XMLHttpRequest mette a disposizione una serie di eventi per "seguire" il processo della richiesta.
+
+```js
+const xhr = new XMLHttpRequest();
+
+xhr.onload = function(){
+    // Process the server response here.
+};
+
+xhr.open("GET", "mysite.com/api/getjson");
+xhr.send();
+```
+
+https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest
 
 ---
 
-<!------------------------------- SLIDE ------------------------------>
+<!------------------------------- SLIDE 33 ------------------------------>
 
-# fetch
+# Fetch API
 
+L'API Fetch è utilizzata per effettuare richieste HTTP requests utilizzando le Promises. La funzione principale fetch() accetta un parametro URL e ritorna una promise che può essere risolta con i risultati della nostra chiamata o rigettata (ad esempio in caso di errori di rete).
+
+```js
+fetch('http://example.com/movies.json')
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+
+La funziona fetch() accetta un secondo argomento opzionale, un oggetto contenente delle opzioni per customizzare la request. Può essere utilizzato per modificare la request type, gli headers, specificare un request body, e molto altro.
+
+<br />
+
+https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+
+https://jsonplaceholder.typicode.com/
+
+https://github.com/public-apis/public-apis
+
+<!--
+Axios
+https://axios-http.com/docs/intro
+PUBLIC API 
+-->
 
 ---
 
-<!------------------------------- SLIDE ------------------------------>
+<!------------------------------- SLIDE 34 ------------------------------>
 
-# axios
+# Moduli
 
+Con l'evolversi di Javascript, le applicazioni sono diventate sempre più complesse richiedendo sempre più codice, per questo si è reso necessario pensare a dei modi per dividere il codice in più moduli che possono essere importati all'occorrenza. Node.js consente di utilizzare i moduli e tante altre librerie hanno permesso nel corso degli anni agli sviluppatori di sfruttare questa caratteristica (ad esempio CommonJS e le librerie basate su AMD come RequireJS, e più recentemente Webpack and Babel).
+
+I browser moderni hanno iniziato a supportare questa funzionalità in maniera nativa.
+
+```js
+// index.html
+<script type="module" src="main.js"></script>
+
+// main.js
+import { name } from './modules/name.js';
+
+// modules/name.js
+export const name = 'square';
+```
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+
+<!--
+- Task runners (Gulp, Grunt)
+- Webpack e vite
+-->
+
+---
+
+<!------------------------------- SLIDE 35 ------------------------------>
+
+# Node.js
+
+Node.js è un runtime Javascript open-source costruito sul motore V8 di Chrome. Consente di eseguire codice Javascirpt fuori dal browser.
+
+Può essere utilizzato per scrivere applicazioni server-side con accesso al sistema operativo ed al file system.
+
+Quando le nuove funzionalià di Javascript vengono supportate da V8, possono essere utilizzate anche con Node.
+
+<img class="w-200px m-auto" src="/images/Node.png" />
+
+https://nodejs.org/
+
+<!--
+fare una prova con node
+-->
+
+---
+
+<!------------------------------- SLIDE 36 ------------------------------>
+
+# NPM
+
+NPM – o "Node Package Manager" – è il package manager di default di Node.js.
+
+NPM consiste principalmente in:
+
+- una CLI (command-line interface) utilizzata per pubblicare e scaricare librerie;
+- un repository online di librerie Javascript
+
+<img class="w-200px m-auto" src="/images/Npm.png" />
+
+Per inizializzare un progetto tramite npm utilizzare il comando `npm init` che creerà un file `package.json`, contente una descrizione del progetto.
+
+Per maggiori informazioni: https://docs.npmjs.com/cli/v8/configuring-npm/package-json
+
+Il comando principale per installare una libreria tramite npm è: `npm install <nome libreria>`
+
+https://www.npmjs.com/
+
+<!--
+fare una prova con node e npm e express
+-->
+
+---
+
+<!------------------------------- SLIDE 37 ------------------------------>
+
+# Frameworks JavaScript
+
+I frameworks JavaScript sono una parte essenziale del moderno sviluppo web che forniscono agli sviluppatori strumenti per creare applicazioni web interattive e scalabili.
+
+I principali framework front-end:
+
+- React
+- Angular
+- Vue
+- Svelte
+
+Back-end:
+- Express
+
+https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks
+
+https://roadmap.sh/frontend
+
+<!--
+https://stateofjs.com/
+-->
+
+---
+
+<!------------------------------- SLIDE 38 ------------------------------>
+
+# Vue
+
+*Vue (pronounced /vjuː/, like view) is a JavaScript framework for building user interfaces. It builds on top of standard HTML, CSS and JavaScript, and provides a declarative and component-based programming model that helps you efficiently develop user interfaces, be it simple or complex.*
+
+Versione attuale: 3. Per iniziare un progetto con Vue:
+
+```js
+npm init vue@latest
+```
+
+e seguire le istruzioni della CLI.
+
+<img class="w-140px m-auto" src="/images/vue.png" />
+
+https://vuejs.org/
+
+<!--Fare una build-->
+
+---
+
+<!------------------------------- SLIDE 39 ------------------------------>
+
+# React
+
+*Una libreria JavaScript per creare interfacce utente*
+
+Versione attuale: 17.0.2. Per iniziare un progetto con React utilizzare la CLI ufficiale create-react-app (https://create-react-app.dev/):
+
+```js
+npm init react-app my-app
+```
+
+e seguire le istruzioni della CLI.
+
+<img class="w-160px m-auto" src="/images/react.png" />
+
+https://it.reactjs.org/
+
+---
+
+<!------------------------------- SLIDE 40 ------------------------------>
+
+# Angular
+
+*The modern web developer's platform*
+
+Versione attuale: 13.3.0. Per iniziare un progetto con React utilizzare la CLI ufficiale @angular/cli (https://angular.io/cli):
+
+```js
+npm install -g @angular/cli
+ng new my-first-project
+```
+
+e seguire le istruzioni della CLI. La CLI di Angular consente anche di generare componenti, moduli, servizi, direttive, ecc..
+
+<img class="w-140px m-auto" src="/images/angular.png" />
+
+https://angular.io/
+
+<!--
+Stackblitz consente di provare tutti i framework
+-->
+
+---
+
+<!------------------------------- SLIDE 41 ------------------------------>
+
+# Deployare la vostra applicazione
+
+- Netlify (https://www.netlify.com/)
+- GitHub Pages (https://pages.github.com/)
+- Firebase Hosting (https://firebase.google.com/)
+- Heroku (https://www.heroku.com/)
+- ...
