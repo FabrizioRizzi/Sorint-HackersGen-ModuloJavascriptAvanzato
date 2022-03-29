@@ -1,5 +1,7 @@
 # HackersGen - Modulo Javascript Avanzato
 
+<img src="./public/images/HACKERSGEN.png">
+
 Slides ed esempi utilizzati per il corso Sorint - HackersGen - Modulo Javascript Avanzato
 
 ## Istruzioni per le slides
