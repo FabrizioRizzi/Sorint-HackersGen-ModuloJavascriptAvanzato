@@ -1,4 +1,10 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+# HackersGen - Modulo Javascript Avanzato
+
+Slides ed esempi utilizzati per il corso Sorint - HackersGen - Modulo Javascript Avanzato
+
+## Istruzioni per le slides
+
+### Welcome to [Slidev](https://github.com/slidevjs/slidev)!
 
 To start the slide show:
 
